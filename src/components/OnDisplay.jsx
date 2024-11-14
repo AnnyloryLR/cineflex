@@ -64,8 +64,6 @@ const Images = styled.div`
         width:145px;
         height:210px;
         border-radius:8px;
-        margin:10px;
-     
-
+        margin:7px;
     }
 `
