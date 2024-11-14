@@ -10,9 +10,9 @@ function App() {
 
   return (
     <>
-       <TopBar />
-       <OnDisplay />
-      {/*<Sessions />*/}
+      <TopBar />
+      {/* <OnDisplay />*/}
+      <Sessions />
       {/*<Seats />*/}
       {/*<Reservation />*/}
     </>

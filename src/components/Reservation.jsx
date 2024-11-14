@@ -12,7 +12,11 @@ export default function Reservation(){
 
 
 const Display = styled.div`
-    width:100%;
-    height:89%;
-    background-color:#212226;
+    width:100vw;
+    height:89vh;    
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    background-color:#212226; 
+    margin-top:11vh;
 `
