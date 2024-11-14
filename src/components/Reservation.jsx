@@ -74,6 +74,7 @@ const Order = styled.div`
         color:#FFFFFF;
         margin:0;
         margin-left:3%;
+        margin-bottom:3%;
     }
 `
 const Division = styled.div`
