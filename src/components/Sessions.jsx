@@ -84,7 +84,7 @@ const Title = styled.div`
 `
 const Session = styled.div`
     width:90%;
-    min-height:25%;
+    min-height:22%;
     display:flex;
     flex-wrap:wrap;
     flex-direction:column;

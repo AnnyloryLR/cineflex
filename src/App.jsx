@@ -12,8 +12,8 @@ function App() {
     <>
       <TopBar />
       {/* <OnDisplay />*/}
-      <Sessions />
-      {/*<Seats />*/}
+      {/*<Sessions />*/}
+      <Seats />
       {/*<Reservation />*/}
     </>
   )
