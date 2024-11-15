@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export default function Sessions(){
     return(
@@ -10,9 +11,9 @@ export default function Sessions(){
                 <Date>Quinta-feira, 21/03/2024</Date>
                 <Division></Division>
                 <Timetable>
-                    <Time>10:00</Time>
-                    <Time>15:00</Time>
-                    <Time>19:00</Time>
+                    <Time to="/assentos/:idSessao">10:00</Time>
+                    <Time to="/assentos/:idSessao">15:00</Time>
+                    <Time to="/assentos/:idSessao">19:00</Time>
                 </Timetable> 
 
             </Session>
@@ -21,11 +22,11 @@ export default function Sessions(){
                 <Date>Sexta-feira, 21/03/2024</Date>
                 <Division></Division>
                 <Timetable>
-                    <Time>10:00</Time>
-                    <Time>12:00</Time>
-                    <Time>15:00</Time>
-                    <Time>18:00</Time>
-                    <Time>21:00</Time>
+                    <Time to="/assentos/:idSessao">10:00</Time>
+                    <Time to="/assentos/:idSessao">12:00</Time>
+                    <Time to="/assentos/:idSessao">15:00</Time>
+                    <Time to="/assentos/:idSessao">18:00</Time>
+                    <Time to="/assentos/:idSessao">21:00</Time>
                 </Timetable> 
 
             </Session>
@@ -34,9 +35,9 @@ export default function Sessions(){
                 <Date>Sábado, 22/03/2024</Date>
                 <Division></Division>
                 <Timetable>
-                    <Time>10:00</Time>
-                    <Time>12:00</Time>
-                    <Time>15:00</Time>
+                    <Time to="/assentos/:idSessao">10:00</Time>
+                    <Time to="/assentos/:idSessao">12:00</Time>
+                    <Time to="/assentos/:idSessao">15:00</Time>
                 </Timetable> 
 
             </Session>
@@ -45,9 +46,9 @@ export default function Sessions(){
                 <Date>Domingo, 23/03/2024</Date>
                 <Division></Division>
                 <Timetable>
-                    <Time>10:00</Time>
-                    <Time>15:00</Time>
-                    <Time>19:00</Time>
+                    <Time to="/assentos/:idSessao">10:00</Time>
+                    <Time to="/assentos/:idSessao">15:00</Time>
+                    <Time to="/assentos/:idSessao">19:00</Time>
                 </Timetable> 
 
             </Session>
@@ -66,6 +67,9 @@ const Display = styled.div`
     justify-content:center;
     background-color:#212226; 
     margin-top:11vh;
+    position:fixed;
+    left:0;
+    bottom:0;
     overflow-y:scroll;
     &::-webkit-scrollbar{
         display:none;
@@ -122,7 +126,7 @@ const Timetable = styled.div`
     display:flex;
     flex-wrap:wrap;
 `
-const Time = styled.div`
+const Time = styled(Link)`
     width:84px;
     height:41px;
     display:flex;
@@ -135,5 +139,6 @@ const Time = styled.div`
     font-family:"Sarala";
     font-weight:400;
     font-size:16px;
+    text-decoration:none;
 `
     

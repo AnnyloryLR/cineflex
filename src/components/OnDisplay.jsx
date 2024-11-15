@@ -5,6 +5,7 @@ import spider from "../images/spyder-man.png"
 import everything from "../images/everything.png"
 import wonka from "../images/wonka.jpeg"
 import mermaid from "../images/little_mermaid.jpeg"
+import { Link } from "react-router-dom"
 
 
 export default function OnDisplay(){
@@ -15,12 +16,29 @@ export default function OnDisplay(){
                     Em cartaz
                 </Title>
                 <Images>
-                    <img src={barbie} />
-                    <img src={oppenheimer} />
-                    <img src={spider} />
-                    <img src={everything} />
-                    <img src={wonka} />
-                    <img src={mermaid} />
+                    <Image to="/sessoes/:idFilme">
+                        <img src={barbie} />
+                    </Image>
+                        
+                    <Image to="/sessoes/:idFilme">
+                        <img src={oppenheimer} />
+                    </Image>
+
+                    <Image to="/sessoes/:idFilme">
+                        <img src={spider} />
+                    </Image>
+
+                    <Image to="/sessoes/:idFilme">
+                        <img src={everything} />
+                    </Image>
+
+                    <Image to="/sessoes/:idFilme">
+                        <img src={wonka} />
+                    </Image>
+
+                    <Image to="/sessoes/:idFilme">
+                        <img src={mermaid} />
+                    </Image>                                   
                 </Images>
             </Display>
        </div>)
@@ -36,6 +54,9 @@ const Display = styled.div`
     justify-content:center;
     background-color:#212226; 
     margin-top:11vh;
+    position:fixed;
+    left:0;
+    bottom:0;
 `
 const Title = styled.div`
     width:100%;
@@ -59,8 +80,10 @@ const Images = styled.div`
     &::-webkit-scrollbar{
         display:none;
     }
-   
-    img{
+    
+`
+const Image = styled(Link)`
+     img{
         width:145px;
         height:210px;
         border-radius:8px;

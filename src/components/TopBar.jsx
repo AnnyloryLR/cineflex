@@ -14,7 +14,7 @@ export default function TopBar(){
 
 
 const Bar = styled.div`
-    width:100%;
+    width:100vw;
     height:11vh;  
     display: flex;
     align-items:center;

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export default function Reservation(){
     return(
@@ -21,7 +22,9 @@ export default function Reservation(){
                 <p>João da Silva Sauro</p>
                 <p>CPF:123.456.789-10</p>
             </Order>
-            <Restart>Voltar para a tela inicial</Restart>
+            <LinkStyle to="/">
+                <Restart>Voltar para a tela inicial</Restart>
+            </LinkStyle>
         </Display>
     )
 }
@@ -37,6 +40,9 @@ const Display = styled.div`
     flex-direction:column;
     background-color:#212226; 
     margin-top:11vh;
+    position:fixed;
+    left:0;
+    bottom:0;
 `
 const Title = styled.div`
     width:100%;
@@ -83,9 +89,16 @@ const Division = styled.div`
     background-color:#4E5A65;
     margin-left:10px;  
 `
+const LinkStyle = styled(Link)`
+    width:95%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+`
 const Restart = styled.button`
-    width:90%;
-    height:6%;
+    width:365px;
+    height:42px;
     background-color:#EE897F;
     border:none;
     border-radius:8px;
@@ -94,4 +107,5 @@ const Restart = styled.button`
     font-size:18px;
     color:#2B2D36; 
     margin-top:20px;  
+    
 `

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export default function Seats(){
     return(
@@ -78,7 +79,9 @@ export default function Seats(){
                         type="text"
                         placeholder="Digite seu Cpf..."
                         />
-                        <Submition type="submit" value="Reservar assento(s)" />
+                        <Link to="/sucesso">
+                            <Submition type="submit" value="Reservar assento(s)" />
+                        </Link>
                     </Form>
                 </form>
             </Wrapper>
@@ -98,6 +101,9 @@ const Display = styled.div`
     align-items:center;
     background-color:#212226; 
     margin-top:11vh;
+    position:fixed;
+    left:0;
+    bottom:0;
 `
 const Title = styled.div`
     width:100%;
@@ -169,7 +175,7 @@ const Information = styled.input`
     }    
 `
 const Submition = styled.input`
-    width:90%;
+    width:355px;
     height:42px;
     background-color:#EE897F;
     border:none;
