@@ -29,8 +29,7 @@ export default function Sessions(){
                     <Date>{session.weekday}, {session.date}</Date>
                     <Division></Division>
                     <Timetable>
-                        <Time to="/assentos/:idSessao">15:00</Time>
-                        {session.showtimes.map(showtime => <Time key={showtime.id} to="/assentos/:idSessao">{showtime.name}</Time>)}
+                        {session.showtimes.map(showtime => <Time key={showtime.id} to={`/assentos/${showtime.id}`}>{showtime.name}</Time>)}
                     </Timetable> 
                 </Session>)}
            

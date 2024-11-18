@@ -1,63 +1,34 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Seats(){
+    const [seats, setSeats] = useState([]);
+
+    const [selected,setSelected] = useState("false")
+
+    //const [information, setInformation] = useState([]);
+    
+
+    const {idSessao} = useParams();
+
+    useEffect(() => {axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`)
+                    .then((answer)=> {setSeats(answer.data.seats)
+                        // console.log(answer.data.name, answer.data.day.weekday, answer.data.day.date, answer.data.movie.title)
+                    })
+                    .catch((error)=> console.log(error.response.data))
+    }, [])
+
+
+   
     return(
         <Display>
             <Title>
                 Selecione o(s) assento(s)
             </Title>
             <Chairs>
-                <Seat>1</Seat>
-                <Seat>2</Seat>
-                <Seat>3</Seat>
-                <Seat>4</Seat>
-                <Seat>5</Seat>
-                <Seat>6</Seat>
-                <Seat>7</Seat>
-                <Seat>8</Seat>
-                <Seat>9</Seat>
-                <Seat>10</Seat>
-                <Seat>11</Seat>
-                <Seat>12</Seat>
-                <Seat>13</Seat>
-                <Seat>14</Seat>
-                <Seat>15</Seat>
-                <Seat>16</Seat>
-                <Seat>17</Seat>
-                <Seat>18</Seat>
-                <Seat>19</Seat>
-                <Seat>20</Seat>
-                <Seat>21</Seat>
-                <Seat>22</Seat>
-                <Seat>23</Seat>
-                <Seat>24</Seat>
-                <Seat>25</Seat>
-                <Seat>26</Seat>
-                <Seat>27</Seat>
-                <Seat>28</Seat>
-                <Seat>29</Seat>
-                <Seat>30</Seat>
-                <Seat>31</Seat>
-                <Seat>32</Seat>
-                <Seat>33</Seat>
-                <Seat>34</Seat>
-                <Seat>35</Seat>
-                <Seat>36</Seat>
-                <Seat>37</Seat>
-                <Seat>38</Seat>
-                <Seat>39</Seat>
-                <Seat>40</Seat>
-                <Seat>41</Seat>
-                <Seat>42</Seat>
-                <Seat>43</Seat>
-                <Seat>44</Seat>
-                <Seat>45</Seat>
-                <Seat>46</Seat>
-                <Seat>47</Seat>
-                <Seat>48</Seat>
-                <Seat>49</Seat>
-                <Seat>50</Seat>
+               { seats.map(seat => <Seat onClick={setSelected("true")}selected={selected} key={seat.id} available={seat.isAvailable} >{seat.name}</Seat>)}
         
             </Chairs>
             <Division></Division>
@@ -130,10 +101,14 @@ const Seat = styled.div`
     align-items:center;
     margin:5px;
     border-radius:50%;
-    background-color:#9DB899; //#FADBC5;//#2B2D36;
-    border:1px solid #808F9D;//2px solid #EE897F;//1px solid #2B2D36;
+    background-color:${props => props.available === "true" ? "#9DB899" 
+    :props.available === "false" ? "#2B2D36"
+    :props.selected === "true" ? "#FADBC5"};
+    border:${props => props.available ? "1px solid #808F9D":" 1px solid #2B2D36"};
     font-family:"Roboto";
     color:#2B2D36;
+
+   
     
 `
 const Division = styled.div`

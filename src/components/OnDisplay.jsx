@@ -7,12 +7,12 @@ import axios from "axios"
 
 
 export default function OnDisplay(){
-    const [items, SetItems] = useState(null)
+    const [items, setItems] = useState(null)
 
     useEffect(()=>{
         const request = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
 
-        request.then((answer)=> SetItems(answer.data))
+        request.then((answer)=> setItems(answer.data))
 
         request.catch((error) => console.log(error.response.data))
 
