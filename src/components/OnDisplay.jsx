@@ -1,14 +1,32 @@
 import styled from "styled-components"
-import barbie from "../images/barbie.jpeg"
-import oppenheimer from "../images/oppenheimer.png"
-import spider from "../images/spyder-man.png"
-import everything from "../images/everything.png"
-import wonka from "../images/wonka.jpeg"
-import mermaid from "../images/little_mermaid.jpeg"
-import { Link } from "react-router-dom"
+import { Link} from "react-router-dom"
+import { useEffect,useState } from "react"
+import axios from "axios"
+
+
 
 
 export default function OnDisplay(){
+    const [items, SetItems] = useState(null)
+
+    useEffect(()=>{
+        const request = axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
+
+        request.then((answer)=> SetItems(answer.data))
+
+        request.catch((error) => console.log(error.response.data))
+
+    },[])
+
+    if(items === null){
+        return(
+            <div>Carregando...</div>
+        )
+    }
+
+   
+
+
     return(
         <div>
             <Display>
@@ -16,29 +34,11 @@ export default function OnDisplay(){
                     Em cartaz
                 </Title>
                 <Images>
-                    <Image to="/sessoes/:idFilme">
-                        <img src={barbie} />
-                    </Image>
-                        
-                    <Image to="/sessoes/:idFilme">
-                        <img src={oppenheimer} />
-                    </Image>
-
-                    <Image to="/sessoes/:idFilme">
-                        <img src={spider} />
-                    </Image>
-
-                    <Image to="/sessoes/:idFilme">
-                        <img src={everything} />
-                    </Image>
-
-                    <Image to="/sessoes/:idFilme">
-                        <img src={wonka} />
-                    </Image>
-
-                    <Image to="/sessoes/:idFilme">
-                        <img src={mermaid} />
-                    </Image>                                   
+                    {items.map(item => 
+                    <Image to={`/sessoes/${item.id}`} key={item.id}>
+                        <img src={item.posterURL} />
+                    </Image>)}
+        
                 </Images>
             </Display>
        </div>)

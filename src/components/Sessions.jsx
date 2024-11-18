@@ -1,57 +1,38 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 export default function Sessions(){
+    const [sessions, setSessions] = useState([])
+
+    const {idFilme} = useParams()
+    
+    useEffect(()=>{
+
+        axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`)
+        .then(answer => setSessions(answer.data.days))
+        .catch(error => console.log(error.response.data))
+
+    },[] )
+
+
+
+
     return(
         <Display>
             <Title>
                 Selecione o horário
             </Title>
-            <Session>
-                <Date>Quinta-feira, 21/03/2024</Date>
-                <Division></Division>
-                <Timetable>
-                    <Time to="/assentos/:idSessao">10:00</Time>
-                    <Time to="/assentos/:idSessao">15:00</Time>
-                    <Time to="/assentos/:idSessao">19:00</Time>
-                </Timetable> 
-
-            </Session>
-           
-            <Session>
-                <Date>Sexta-feira, 21/03/2024</Date>
-                <Division></Division>
-                <Timetable>
-                    <Time to="/assentos/:idSessao">10:00</Time>
-                    <Time to="/assentos/:idSessao">12:00</Time>
-                    <Time to="/assentos/:idSessao">15:00</Time>
-                    <Time to="/assentos/:idSessao">18:00</Time>
-                    <Time to="/assentos/:idSessao">21:00</Time>
-                </Timetable> 
-
-            </Session>
-      
-            <Session>
-                <Date>Sábado, 22/03/2024</Date>
-                <Division></Division>
-                <Timetable>
-                    <Time to="/assentos/:idSessao">10:00</Time>
-                    <Time to="/assentos/:idSessao">12:00</Time>
-                    <Time to="/assentos/:idSessao">15:00</Time>
-                </Timetable> 
-
-            </Session>
-
-            <Session>
-                <Date>Domingo, 23/03/2024</Date>
-                <Division></Division>
-                <Timetable>
-                    <Time to="/assentos/:idSessao">10:00</Time>
-                    <Time to="/assentos/:idSessao">15:00</Time>
-                    <Time to="/assentos/:idSessao">19:00</Time>
-                </Timetable> 
-
-            </Session>
+              {sessions.map( session => 
+                <Session key={session.id}>
+                    <Date>{session.weekday}, {session.date}</Date>
+                    <Division></Division>
+                    <Timetable>
+                        <Time to="/assentos/:idSessao">15:00</Time>
+                        {session.showtimes.map(showtime => <Time key={showtime.id} to="/assentos/:idSessao">{showtime.name}</Time>)}
+                    </Timetable> 
+                </Session>)}
            
         </Display>
     )
@@ -125,6 +106,7 @@ const Timetable = styled.div`
     min-height:45%;
     display:flex;
     flex-wrap:wrap;
+    justify-content:center;
 `
 const Time = styled(Link)`
     width:84px;
