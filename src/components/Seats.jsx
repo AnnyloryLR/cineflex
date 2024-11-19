@@ -2,25 +2,19 @@ import styled from "styled-components"
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Seat } from "./Seat";
 
 export default function Seats(){
     const [seats, setSeats] = useState([]);
-
-    const [selected,setSelected] = useState("false")
-
-    //const [information, setInformation] = useState([]);
     
-
     const {idSessao} = useParams();
 
     useEffect(() => {axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`)
-                    .then((answer)=> {setSeats(answer.data.seats)
-                        // console.log(answer.data.name, answer.data.day.weekday, answer.data.day.date, answer.data.movie.title)
-                    })
+                    .then((answer)=> setSeats(answer.data.seats))
                     .catch((error)=> console.log(error.response.data))
     }, [])
 
-
+       
    
     return(
         <Display>
@@ -28,8 +22,10 @@ export default function Seats(){
                 Selecione o(s) assento(s)
             </Title>
             <Chairs>
-               { seats.map(seat => <Seat onClick={setSelected("true")}selected={selected} key={seat.id} available={seat.isAvailable} >{seat.name}</Seat>)}
-        
+               {seats.map(seat => <Seat 
+                    key={seat.id}  
+                    available={seat.isAvailable} 
+                     name={seat.name}></Seat>)}
             </Chairs>
             <Division></Division>
             <Wrapper>
@@ -93,24 +89,7 @@ const Chairs = styled.div`
     flex-wrap:wrap;
     justify-content:center;
 `
-const Seat = styled.div`
-    width:26px;
-    height:26px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:5px;
-    border-radius:50%;
-    background-color:${props => props.available === "true" ? "#9DB899" 
-    :props.available === "false" ? "#2B2D36"
-    :props.selected === "true" ? "#FADBC5"};
-    border:${props => props.available ? "1px solid #808F9D":" 1px solid #2B2D36"};
-    font-family:"Roboto";
-    color:#2B2D36;
 
-   
-    
-`
 const Division = styled.div`
     width:302px;
     height:1px;
