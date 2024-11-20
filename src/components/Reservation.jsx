@@ -33,7 +33,7 @@ export default function Reservation({reservation}){
 
 const Display = styled.div`
     width:100vw;
-    height:89vh;    
+    height:89%;    
     display:flex;
     flex-wrap:wrap;
     align-items:center;

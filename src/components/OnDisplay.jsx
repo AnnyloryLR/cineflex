@@ -48,7 +48,7 @@ export default function OnDisplay(){
 
 const Display = styled.div`
     width:100vw;
-    height:89vh;    
+    height:89%;    
     display:flex;
     flex-wrap:wrap;
     justify-content:center;

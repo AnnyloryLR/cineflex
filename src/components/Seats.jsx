@@ -106,7 +106,7 @@ export default function Seats({reservation, setReservation}){
 
 const Display = styled.div`
     width:100vw;
-    height:89vh;    
+    height:89%;     
     display:flex;
     flex-wrap:wrap;
     flex-direction:column;
