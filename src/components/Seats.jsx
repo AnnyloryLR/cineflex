@@ -1,20 +1,38 @@
 import styled from "styled-components"
-import { Link, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Seat } from "./Seat";
 
 export default function Seats(){
+
     const [seats, setSeats] = useState([]);
     
     const {idSessao} = useParams();
+
+    const [name, setName] = useState("");
+
+    const [cpf, setCpf] = useState("")
+
+    const [chosen, setChosen] = useState([]) 
+
+    const navigate = useNavigate()
 
     useEffect(() => {axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`)
                     .then((answer)=> setSeats(answer.data.seats))
                     .catch((error)=> console.log(error.response.data))
     }, [])
 
-       
+
+    function submitForm(event){
+        event.preventDefault()
+        const information = {name,cpf, ids:chosen}
+
+        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", information)
+        .then(res => navigate("/sucesso"))
+        .catch(err => console.log(err))
+    }
+
    
     return(
         <Display>
@@ -23,13 +41,16 @@ export default function Seats(){
             </Title>
             <Chairs>
                {seats.map(seat => <Seat 
-                    key={seat.id}  
+                    key={seat.id}
+                    id={seat.id}  
                     available={seat.isAvailable} 
+                    chosen={chosen}
+                    setChosen={setChosen}
                      name={seat.name}></Seat>)}
             </Chairs>
             <Division></Division>
             <Wrapper>
-                <form>
+                <form onSubmit={submitForm}>
                     <Form>
                         <label htmlFor="name">Nome do comprador(a)</label>
                         <Information
@@ -37,6 +58,8 @@ export default function Seats(){
                         required
                         type="text"
                         placeholder="Digite seu nome..."
+                        value={name}
+                        onChange={e => setName(e.target.value)}
                         />
 
                         <label htmlFor="cpf">CPF do comprador(a)</label>
@@ -45,10 +68,11 @@ export default function Seats(){
                         required
                         type="text"
                         placeholder="Digite seu Cpf..."
+                        value={cpf}
+                        onChange={e => setCpf(e.target.value)}
                         />
-                        <Link to="/sucesso">
-                            <Submition type="submit" value="Reservar assento(s)" />
-                        </Link>
+                        <Submition type="submit" value="Reservar assento(s)" />
+
                     </Form>
                 </form>
             </Wrapper>
@@ -129,7 +153,7 @@ const Information = styled.input`
     }    
 `
 const Submition = styled.input`
-    width:355px;
+    width:90%;
     height:42px;
     background-color:#EE897F;
     border:none;
