@@ -24,14 +24,14 @@ export default function Sessions(){
             <Title>
                 Selecione o horário
             </Title>
-              {sessions.map( session => 
-                <Session key={session.id}>
-                    <Date>{session.weekday}, {session.date}</Date>
+        {sessions.map( session => 
+            <Session key={session.id}>
+                <Date>{session.weekday}, {session.date}</Date>
                     <Division></Division>
-                    <Timetable>
-                        {session.showtimes.map(showtime => <Time key={showtime.id} to={`/assentos/${showtime.id}`}>{showtime.name}</Time>)}
-                    </Timetable> 
-                </Session>)}
+                <Timetable>
+                    {session.showtimes.map(showtime => <Time key={showtime.id} to={`/assentos/${showtime.id}`}>{showtime.name}</Time>)}
+                </Timetable> 
+            </Session>)}
            
         </Display>
     )
@@ -72,8 +72,7 @@ const Session = styled.div`
     display:flex;
     flex-wrap:wrap;
     flex-direction:column;
-    align-items:center;
-    justify-content:space-around;
+    align-content:center;
     background-color:#2B2D36;
     border-radius:8px;
     margin-bottom:20px;
@@ -93,11 +92,12 @@ const Date = styled.div`
     
 `
 const Division = styled.div`
-    width:302px;
+    width:90%;
     height:1px;
+    display:flex;
+    align-self:center;
+    margin:10px;
     background-color:#4E5A65;
-    margin-top:5px;
-    margin-bottom:5px;
     
 `
 const Timetable = styled.div`
