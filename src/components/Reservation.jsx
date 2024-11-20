@@ -1,7 +1,8 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 
-export default function Reservation(){
+export default function Reservation({reservation}){
+
     return(
         <Display>
             <Title>
@@ -10,17 +11,15 @@ export default function Reservation(){
             <Order>
                 <h1>Filme e Sessão</h1>
                 <Division></Division>
-                <p>Homem-Aranha: através do
-                 aranhaverso</p>
-                <p>22/03/2024 às 21:00</p>
+                <p>{reservation.title}</p>
+                <p>{reservation.date} às {reservation.time}</p>
                 <h1>Ingressos</h1>
                 <Division></Division>
-                <p>Assento 15</p>
-                <p>Assento 16</p>
+                {reservation.seats.map(s =><p key={s}>Assento {s}</p>)}
                 <h1>Comprador(a)</h1>
                 <Division></Division>
-                <p>João da Silva Sauro</p>
-                <p>CPF:123.456.789-10</p>
+                <p>{reservation.name}</p>
+                <p>CPF:{reservation.cpf}</p>
             </Order>
             <LinkStyle to="/">
                 <Restart>Voltar para a tela inicial</Restart>
@@ -28,6 +27,7 @@ export default function Reservation(){
         </Display>
     )
 }
+
 
 
 

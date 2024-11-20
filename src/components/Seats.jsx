@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Seat } from "./Seat";
 
-export default function Seats(){
+export default function Seats({reservation, setReservation}){
 
     const [seats, setSeats] = useState([]);
     
@@ -12,26 +12,45 @@ export default function Seats(){
 
     const [name, setName] = useState("");
 
-    const [cpf, setCpf] = useState("")
+    const [cpf, setCpf] = useState("");
 
-    const [chosen, setChosen] = useState([]) 
+    const [chosen, setChosen] = useState([]);
 
-    const navigate = useNavigate()
+    const [chosenName, setChosenName] = useState([])
+    
+    const [session, setSession] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`)
-                    .then((answer)=> setSeats(answer.data.seats))
+                    .then((answer)=>{setSeats(answer.data.seats)
+                                     setSession(answer.data)})
                     .catch((error)=> console.log(error.response.data))
     }, [])
 
+    function confirmationData(){
+        
+        const order = {title:session.movie.title, date:session.day.date, time:session.name,
+             seats:chosenName, name:name, cpf:cpf};
+        setReservation(order)
+
+
+
+    }
+
 
     function submitForm(event){
+
         event.preventDefault()
         const information = {name,cpf, ids:chosen}
+        confirmationData()
 
         axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", information)
         .then(res => navigate("/sucesso"))
         .catch(err => console.log(err))
     }
+
+    
 
    
     return(
@@ -46,6 +65,8 @@ export default function Seats(){
                     available={seat.isAvailable} 
                     chosen={chosen}
                     setChosen={setChosen}
+                    chosenName={chosenName}
+                    setChosenName={setChosenName}
                      name={seat.name}></Seat>)}
             </Chairs>
             <Division></Division>

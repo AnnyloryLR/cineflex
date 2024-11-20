@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-export function Seat({name, id, available, chosen, setChosen}){
+export function Seat({name, id, available, chosen, setChosen, chosenName, setChosenName}){
 
     const [StyleSeat, setStyle] = useState(SeatStyle);
 
@@ -11,8 +11,11 @@ export function Seat({name, id, available, chosen, setChosen}){
     function select(){
         if(StyleSeat === SeatStyle && available === true){
             let chosenSeat = id;
-            const newSeats = [...chosen, chosenSeat]
+            let chosenSeatName = name;
+            const newSeats = [...chosen, chosenSeat];
+            const newSeatsNames = [...chosenName, chosenSeatName]; 
             setChosen(newSeats)
+            setChosenName(newSeatsNames)
             setStyle(SelectedSeat)
 
            
