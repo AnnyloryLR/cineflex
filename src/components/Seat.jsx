@@ -6,8 +6,6 @@ export function Seat({name, id, available, chosen, setChosen, chosenName, setCho
 
     const [StyleSeat, setStyle] = useState(SeatStyle);
 
-   
-
     function select(){
         if(StyleSeat === SeatStyle && available === true){
             let chosenSeat = id;
@@ -20,14 +18,23 @@ export function Seat({name, id, available, chosen, setChosen, chosenName, setCho
 
            
         }else if(StyleSeat === SelectedSeat){
+            let chosenSeat = id;
+            let chosenSeatName = name;
+            const newSeats = [...chosen];
+            const seatsNames = [...chosenName]; 
+            const seatsChosen = newSeats.filter(newSeat => newSeat !== chosenSeat);
+            const namesSeats = seatsNames.filter(seatName => seatName !== chosenSeatName); 
+            setChosen(seatsChosen)
+            setChosenName(namesSeats)
             setStyle(SeatStyle)
             
         }else{
             setStyle(SeatStyle)
             alert("Este assento não está disponível")
-        }  
+        }
+        
+        
     }
-
 
 
 
